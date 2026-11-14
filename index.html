@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World Squash Masters 2026 · Austrália — Vídeos</title>
+<title>World Squash Masters — Vídeos de Marcelo Abelheira</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
@@ -21,7 +21,7 @@ button{font:inherit;cursor:pointer}
 /* Cabeçalho */
 header.topo{background:var(--tinta);color:#fff;position:sticky;top:0;z-index:1000;border-bottom:4px solid var(--mel)}
 .topo-in{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
-.logo{width:42px;height:42px;border-radius:50%;background:var(--mel);display:grid;place-items:center;font-size:22px;flex:none}
+.logo{width:42px;height:42px;border-radius:50%;background:var(--mel);display:grid;place-items:center;font-size:22px;flex:none;cursor:pointer}
 .topo h1{font-size:17px;font-weight:700;letter-spacing:.2px}
 .topo small{display:block;color:#C9C9D1;font-size:12.5px;font-weight:400}
 .topo .home-btn{margin-left:auto;background:transparent;border:1px solid #55555f;color:#fff;border-radius:999px;padding:6px 14px;font-size:13px}
@@ -31,19 +31,22 @@ main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
 
 /* Hero */
 .hero{background:linear-gradient(120deg,var(--tinta) 0%,var(--tinta2) 60%,#3a3220 100%);color:#fff;border-radius:var(--raio);padding:34px 32px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--mel) 0%,rgba(245,183,0,0) 70%);opacity:.35}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--mel) 0%,rgba(245,183,0,0) 70%);opacity:.35;pointer-events:none}
 .hero .tag{display:inline-block;background:var(--mel);color:var(--tinta);font-weight:700;font-size:12px;padding:4px 10px;border-radius:999px;letter-spacing:.5px;text-transform:uppercase}
 .hero h2{font-size:30px;margin:12px 0 8px;line-height:1.15}
 .hero p{color:#D8D8DF;max-width:720px;font-size:15px}
 .hero .nums{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap}
 .hero .nums b{display:block;font-size:26px;color:var(--mel)}
 .hero .nums span{font-size:12.5px;color:#C9C9D1}
+.hero .destaque{margin-top:18px;background:var(--mel);color:var(--tinta);border:0;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;position:relative;z-index:1}
+.hero .destaque:hover{background:#fff}
 
 /* Cards principais */
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.cards3.n2{grid-template-columns:repeat(2,1fr)}
 .card-main{background:var(--branco);border-radius:var(--raio);overflow:hidden;border:1px solid var(--linha);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
 .card-main:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.09)}
-.card-main .capa{height:150px;background-size:cover;background-position:center;position:relative;cursor:pointer}
+.card-main .capa{height:150px;background:#333 center/cover no-repeat;position:relative;cursor:pointer}
 .card-main .capa::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.72))}
 .card-main .capa .ttl{position:absolute;left:16px;bottom:12px;right:16px;color:#fff;font-weight:700;font-size:19px;line-height:1.2}
 .card-main .faixa{height:5px}
@@ -56,12 +59,12 @@ main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
 .card-main .abrir{margin-top:auto;background:var(--tinta);color:#fff;border:0;border-radius:10px;padding:10px;font-weight:600}
 .card-main .abrir:hover{background:var(--mel);color:var(--tinta)}
 
-/* Mapa */
+/* Seções e mapa */
 .secao{margin-top:34px}
 .secao h3{font-size:20px;display:flex;align-items:center;gap:10px}
 .secao h3::before{content:"";width:6px;height:22px;background:var(--mel);border-radius:3px}
 .secao .sub{color:var(--cinza);font-size:14px;margin:4px 0 14px}
-#mapa{height:440px;border-radius:var(--raio);border:1px solid var(--linha);background:#dfe8ee}
+#mapa{height:440px;border-radius:var(--raio);border:1px solid var(--linha);background:#dfe8ee;z-index:0}
 .mapa-ctl{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
 .chip{background:#fff;border:1px solid var(--linha);border-radius:999px;padding:6px 13px;font-size:13.5px;display:inline-flex;gap:7px;align-items:center}
 .chip:hover{border-color:var(--mel-esc);background:var(--mel-claro)}
@@ -76,10 +79,25 @@ main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
 .mk-lbl{background:var(--tinta);color:#fff;border:0;border-radius:6px;font-weight:600;font-size:12px;padding:2px 7px;box-shadow:none}
 .mk-lbl::before{display:none}
 
+/* Edições */
+.edicoes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.ed{border-radius:var(--raio);overflow:hidden;position:relative;min-height:190px;color:#fff;cursor:pointer;background:#333 center/cover no-repeat;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .15s,box-shadow .15s;border:0;text-align:left}
+.ed::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.82) 100%)}
+.ed:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.ed .in{position:relative;padding:16px}
+.ed .ano{display:inline-block;background:var(--mel);color:var(--tinta);font-weight:800;font-size:13px;padding:2px 10px;border-radius:999px}
+.ed .pais{font-size:21px;font-weight:700;margin-top:6px;line-height:1.15}
+.ed .cid{font-size:13px;opacity:.85}
+.ed .q{font-size:12.5px;opacity:.85;margin-top:6px}
+.ed.breve{cursor:default;background:linear-gradient(135deg,#007749 0%,#007749 34%,#FFB81C 34%,#FFB81C 40%,#000 40%,#000 60%,#DE3831 60%,#DE3831 66%,#002395 66%)}
+.ed.breve:hover{transform:none;box-shadow:none}
+.ed.breve .selo{position:absolute;top:12px;right:12px;background:#fff;color:var(--tinta);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;z-index:1}
+
 /* Tela de categoria */
 .voltar{background:transparent;border:0;color:var(--cinza);font-size:14px;margin-bottom:10px;padding:4px 0}
 .voltar:hover{color:var(--tinta)}
 .cab-cat{border-radius:var(--raio);padding:24px 26px;color:#fff;position:relative;overflow:hidden}
+.cab-cat .ev{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;opacity:.8}
 .cab-cat h2{font-size:26px}
 .cab-cat p{opacity:.88;font-size:14.5px;margin-top:4px}
 .abas{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
@@ -128,7 +146,7 @@ footer a{color:var(--mel-esc)}
 
 @media (max-width:900px){
   .cards3{grid-template-columns:1fr 1fr}
-  .cards3 .card-main:last-child{grid-column:1/-1}
+  .cards3:not(.n2) .card-main:last-child{grid-column:1/-1}
   #mapa{height:360px}
 }
 /* ===== Celular ===== */
@@ -146,8 +164,9 @@ footer a{color:var(--mel-esc)}
   .hero .nums{gap:8px 18px;display:grid;grid-template-columns:repeat(4,auto);justify-content:start}
   .hero .nums b{font-size:20px}
   .hero .nums span{font-size:11.5px}
+  .hero .destaque{width:100%}
 
-  .cards3{grid-template-columns:1fr;gap:14px;margin-top:16px}
+  .cards3,.cards3.n2{grid-template-columns:1fr;gap:14px;margin-top:16px}
   .card-main .capa{height:120px}
   .card-main .capa .ttl{font-size:17px}
 
@@ -158,11 +177,16 @@ footer a{color:var(--mel-esc)}
   .chip{flex:none;white-space:nowrap}
   .abas2{padding:8px 10px}
 
+  .edicoes{grid-template-columns:1fr 1fr;gap:10px}
+  .ed{min-height:150px}
+  .ed .in{padding:12px}
+  .ed .pais{font-size:17px}
+  .ed .cid,.ed .q{font-size:11.5px}
+
   .cab-cat{padding:18px}
   .cab-cat h2{font-size:20px}
   .cab-cat p{font-size:13.5px}
 
-  /* Vídeos em lista: miniatura à esquerda, texto à direita */
   .grade{grid-template-columns:1fr;gap:10px}
   .vid{flex-direction:row}
   .vid .th{width:42%;max-width:170px;flex:none;aspect-ratio:16/10}
@@ -180,16 +204,16 @@ footer a{color:var(--mel-esc)}
   .modal .rod a,.modal .rod button{padding:10px;text-align:center}
   .busca{max-width:none;font-size:16px}
 }
-@media (hover:none){.vid:hover,.card-main:hover{transform:none;box-shadow:none}}
+@media (hover:none){.vid:hover,.card-main:hover,.ed:hover{transform:none;box-shadow:none}}
 </style>
 </head>
 <body>
 
 <header class="topo">
   <div class="topo-in">
-    <div class="logo" aria-hidden="true">🐝</div>
+    <div class="logo" aria-hidden="true" onclick="ir('')">🐝</div>
     <div>
-      <h1>World Squash Masters 2026 · Austrália</h1>
+      <h1 id="topo-t">World Squash Masters</h1>
       <small>Vídeos de Marcelo Abelheira · canal Abelha das Raquetes</small>
     </div>
     <button class="home-btn" onclick="ir('')">⌂ Início</button>
@@ -213,23 +237,55 @@ footer a{color:var(--mel-esc)}
   </div>
 </div>
 
-<footer>
-  Playlist completa no YouTube: <a href="https://www.youtube.com/playlist?list=PLFOZ4swf5d8A" target="_blank" rel="noopener">World Squash Masters 2026 – Australia</a> · 87 vídeos · v2
-</footer>
+<footer id="rodape"></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* =========================================================
-   DADOS — [nº na playlist, id YouTube, duração, título exibido, marcadores]
+   EDIÇÕES — cada evento tem seus vídeos, cidades, mapa e cards.
+   Vídeos: [nº na playlist, id YouTube, duração, título exibido, marcadores]
    Marcadores:
-     T = Torneio (geral) · T:shop Shopping · T:mir Mirrabooka · T:bel Belmont
-     U:log Logística · U:hosp Hospedagens · U:pick Points de Pickleball
-     A:tur Pontos Turísticos · A:inf Infraestrutura · A:desl Deslocamento
-     c:per Perth · c:syd Sydney · c:kat Katoomba · c:ist Istambul
-     c:sp São Paulo · c:rio Rio de Janeiro · c:kul Malásia (escala)
+     T = Torneio (geral) · T:<sub> = subdivisão do Torneio
+     U:<sub> = subdivisão de Turismo · A:<sub> = subdivisão de atrações/infraestrutura
+     c:<cidade> = cidade (aparece no mapa)
    Um vídeo pode ter vários marcadores (aparece em várias telas).
    ========================================================= */
-const V = [
+const toV = arr => arr.map(([n,id,d,t,m])=>({n,id,d,t,m:m?m.split(" "):[]}));
+
+const EV = {};
+
+/* ---------------- 2026 · AUSTRÁLIA ---------------- */
+EV.aus2026 = {
+  ano:2026, pais:"Austrália", bandeira:"", sede:"Perth",
+  titulo:"World Squash Masters 2026 — Austrália",
+  tag:"Perth · Sydney · Katoomba · Istambul",
+  desc:"O torneio, a viagem e o que a Austrália tem a mostrar, em vídeos curtos organizados por tema. Um mesmo vídeo pode aparecer em mais de uma seção.",
+  playlist:"PLFOZ4swf5d8A", playlistNome:"World Squash Masters 2026 – Australia",
+  capa:"xY9u4glSGcc",
+  cidades:{
+    per:{nome:"Perth",ll:[-31.9523,115.8613],principal:true,dir:"left",desc:"Sede do torneio — Belmont, Mirrabooka e Shopping"},
+    syd:{nome:"Sydney",ll:[-33.8688,151.2093],principal:true,dir:"right",desc:"Pickleball, hostel, Olympic Park e Opera House"},
+    kat:{nome:"Katoomba",ll:[-33.7120,150.3119],principal:true,dir:"bottom",desc:"Blue Mountains — Scenic World e Three Sisters"},
+    ist:{nome:"Istambul",ll:[41.0082,28.9784],principal:true,dir:"top",desc:"Escala na ida e na volta"},
+    kul:{nome:"Malásia (escala)",ll:[2.7456,101.7072],principal:false,desc:"Escalas rápidas no aeroporto"},
+    sp:{nome:"São Paulo",ll:[-23.4356,-46.4731],principal:false,desc:"Rodoviária e aeroporto de Guarulhos"},
+    rio:{nome:"Rio de Janeiro",ll:[-22.9068,-43.1729],principal:false,desc:"Início da viagem"}
+  },
+  cidTur:["per","syd","kat","ist"],
+  rota:[["rio","sp","ist","kul","syd","per"],["syd","kat"]],
+  zooms:[["🔎 Zoom na Austrália",["per","syd","kat"]]],
+  cats:[
+    {k:"torneio",tipo:"T",nome:"Torneio World Squash Masters",cor:"var(--torneio)",grad:"linear-gradient(120deg,#0b4f66,#0E6E8C)",
+     desc:"Jogos, quadras e bastidores do campeonato em Perth.",capa:"DP_C96FTAp8",
+     subs:[["shop","Shopping"],["mir","Mirrabooka"],["bel","Belmont"]]},
+    {k:"turismo",tipo:"U",nome:"Turismo — Marcelo Abelheira",cor:"var(--turismo)",grad:"linear-gradient(120deg,#7a2e12,#B5481F)",
+     desc:"A viagem de ponta a ponta: deslocamentos, hospedagens, cidades e pickleball.",capa:"pSIsakHQ2AY",
+     subs:[["log","Logística da viagem"],["hosp","Hospedagens"],["cid","Cidades"],["pick","Points de Pickleball"]]},
+    {k:"australia",tipo:"A",nome:"Austrália — atrações e infraestrutura",cor:"var(--aus)",grad:"linear-gradient(120deg,#1d5535,#2E7D4F)",
+     desc:"O que o país mostrou: pontos turísticos, cuidado urbano e transporte.",capa:"xY9u4glSGcc",
+     subs:[["tur","Pontos Turísticos"],["inf","Infraestrutura"],["desl","Deslocamento"]]}
+  ],
+  V:toV([
 [1,"re2_ebg1rZw","0:26","Convite para acompanhar os vídeos","T"],
 [2,"f5CtfozzQg0","0:45","GRU — check-in","U:log c:sp"],
 [3,"U2DPR3gujBM","0:47","GRU — Sala VIP Mastercard","U:log c:sp"],
@@ -317,96 +373,319 @@ const V = [
 [85,"Nhb5FnRwaNY","0:29","Istambul — bela maquete em estação de metrô","c:ist"],
 [86,"x1k3gwBiJQU","0:51","Istambul — área comercial (passeio rápido e compra de chocolate)","c:ist"],
 [87,"ReSOJzDMdS4","0:59","Ônibus RJ x SP (1ª etapa da viagem de ida)","U:log c:rio"]
-].map(([n,id,d,t,m])=>({n,id,d,t,m:m.split(" ")}));
-
-const CIDADES = {
-  per:{nome:"Perth",ll:[-31.9523,115.8613],principal:true,desc:"Sede do torneio — Belmont, Mirrabooka e Shopping"},
-  syd:{nome:"Sydney",ll:[-33.8688,151.2093],principal:true,desc:"Pickleball, hostel, Olympic Park e Opera House"},
-  kat:{nome:"Katoomba",ll:[-33.7120,150.3119],principal:true,desc:"Blue Mountains — Scenic World e Three Sisters"},
-  ist:{nome:"Istambul",ll:[41.0082,28.9784],principal:true,desc:"Escala na ida e na volta"},
-  kul:{nome:"Malásia (escala)",ll:[2.7456,101.7072],principal:false,desc:"Escalas rápidas no aeroporto"},
-  sp:{nome:"São Paulo",ll:[-23.4356,-46.4731],principal:false,desc:"Rodoviária e aeroporto de Guarulhos"},
-  rio:{nome:"Rio de Janeiro",ll:[-22.9068,-43.1729],principal:false,desc:"Início da viagem"}
+  ])
 };
-const CID_TURISMO = ["per","syd","kat","ist"];
 
-const CATS = {
-  torneio:{
-    nome:"Torneio World Squash Masters", cor:"var(--torneio)", grad:"linear-gradient(120deg,#0b4f66,#0E6E8C)",
-    desc:"Jogos, quadras e bastidores do campeonato em Perth.",
-    capa:"DP_C96FTAp8",
-    subs:[["shop","Shopping"],["mir","Mirrabooka"],["bel","Belmont"]],
-    pertence:v=>v.m.some(x=>x==="T"||x.startsWith("T:")),
-    sub:(v,s)=>v.m.includes("T:"+s)
+/* ---------------- 2024 · HOLANDA ---------------- */
+EV.hol2024 = {
+  ano:2024, pais:"Holanda", bandeira:"", sede:"Amsterdam",
+  titulo:"World Squash Masters 2024 — Holanda",
+  tag:"Amsterdam · Haia · Bruxelas · Bruges · Lille · Roma",
+  desc:"O Mundial em Amsterdam (Frans Otten Stadium) e o turismo esportivo antes e depois do torneio: Roma, Bruxelas, Antuérpia, Haia, Bruges e Lille.",
+  playlist:"PLZpNiES1jrAFFbAWGeNNUQ2rJfZPOyuDY", playlistNome:"Turismo esportivo (pré & pós torneio em Amsterdam 2024)",
+  capa:"vNzQOnp6Wtk",
+  destaque:[121,"▶ Assistir ao resumão geral (5 min)"],
+  cidades:{
+    ams:{nome:"Amsterdam",ll:[52.3676,4.9041],principal:true,dir:"top",desc:"Sede do torneio — Frans Otten Stadium, canais e estação central"},
+    hui:{nome:"Huizen",ll:[52.2993,5.2415],principal:true,dir:"right",desc:"Hospedagem nos arredores de Amsterdam"},
+    hai:{nome:"Haia",ll:[52.0705,4.3007],principal:true,dir:"left",desc:"Praia, porto, bikes e transporte sobre trilhos"},
+    ant:{nome:"Antuérpia",ll:[51.2194,4.4025],principal:true,dir:"right",desc:"Paradas do Flixbus e a escala longa"},
+    bru:{nome:"Bruxelas",ll:[50.8503,4.3517],principal:true,dir:"bottom",desc:"Grand-Place, Tapete de Flores e Academia Winner"},
+    brg:{nome:"Bruges",ll:[51.2093,3.2247],principal:true,dir:"left",desc:"Praça principal, passeio de barco e moinhos"},
+    lil:{nome:"Lille",ll:[50.6292,3.0573],principal:true,dir:"left",desc:"Parques, Academia Le Lil e metrô"},
+    cdg:{nome:"Paris (aeroporto CDG)",ll:[49.0097,2.5479],principal:false,dir:"left",desc:"Chegada e partida pela Europa"},
+    rom:{nome:"Roma",ll:[41.9028,12.4964],principal:true,dir:"right",desc:"Escala longa na ida — Trevi, Vaticano e o Tibre"}
   },
-  turismo:{
-    nome:"Turismo — Marcelo Abelheira", cor:"var(--turismo)", grad:"linear-gradient(120deg,#7a2e12,#B5481F)",
-    desc:"A viagem de ponta a ponta: deslocamentos, hospedagens, cidades e pickleball.",
-    capa:"pSIsakHQ2AY",
-    subs:[["log","Logística da viagem"],["hosp","Hospedagens"],["cid","Cidades"],["pick","Points de Pickleball"]],
-    pertence:v=>v.m.some(x=>x.startsWith("U:")) || (soCidTur(v).length && !CATS.torneio.pertence(v)),
-    sub:(v,s)=> s==="cid" ? (soCidTur(v).length>0 && !CATS.torneio.pertence(v)) : v.m.includes("U:"+s)
-  },
-  australia:{
-    nome:"Austrália — atrações e infraestrutura", cor:"var(--aus)", grad:"linear-gradient(120deg,#1d5535,#2E7D4F)",
-    desc:"O que o país mostrou: pontos turísticos, cuidado urbano e transporte.",
-    capa:"xY9u4glSGcc",
-    subs:[["tur","Pontos Turísticos"],["inf","Infraestrutura"],["desl","Deslocamento"]],
-    pertence:v=>v.m.some(x=>x.startsWith("A:")),
-    sub:(v,s)=>v.m.includes("A:"+s)
-  }
+  cidTur:["rom","cdg","bru","ant","ams","hui","hai","brg","lil"],
+  rota:[["rom","cdg","bru","ant","ams"],["ams","hui"],["ams","hai","ant","brg","lil","cdg"]],
+  inicio:["ams","hai","bru","brg","lil","cdg"],
+  zooms:[["🔎 Holanda e Bélgica",["ams","hai","bru","brg","lil","cdg"]]],
+  cats:[
+    {k:"torneio",tipo:"T",nome:"Torneio World Squash Masters",cor:"var(--torneio)",grad:"linear-gradient(120deg,#0b4f66,#0E6E8C)",
+     desc:"Jogos, Time Brasil e o Frans Otten Stadium, em Amsterdam.",capa:"OjtCBSfWKA0",
+     subs:[["fo","Frans Otten Stadium"],["jog","Jogos e Time Brasil"]]},
+    {k:"turismo",tipo:"U",nome:"Turismo — Marcelo Abelheira",cor:"var(--turismo)",grad:"linear-gradient(120deg,#7a2e12,#B5481F)",
+     desc:"Turismo esportivo raiz: Flixbus, albergues, Airbnb, nove cidades e clubes de squash.",capa:"zJoUaTD9bd4",
+     subs:[["log","Logística da viagem"],["hosp","Hospedagens"],["cid","Cidades"],["clubes","Squash e espaços esportivos"]]},
+    {k:"europa",tipo:"A",nome:"Europa — atrações e infraestrutura",cor:"var(--aus)",grad:"linear-gradient(120deg,#1d5535,#2E7D4F)",
+     desc:"O que Holanda, Bélgica, França e Itália mostraram: pontos turísticos, cuidado urbano e transporte.",capa:"vNzQOnp6Wtk",
+     subs:[["tur","Pontos Turísticos"],["inf","Infraestrutura"],["desl","Deslocamento"]]}
+  ],
+  V:toV([
+[1,"xM5Vfn-9WQA","0:41","Roma — chegando na estação central (ônibus do aeroporto)","U:log A:desl c:rom"],
+[2,"oHX994tqVEg","0:41","Roma — caminhando às margens do rio (do Coliseu ao Vaticano)","A:tur c:rom"],
+[3,"xzRWj0HCD7Y","0:24","Roma — no Vaticano ao meio-dia (12/08, aniversário de casamento)","A:tur c:rom"],
+[4,"XUvTthXZ4qY","0:37","Roma (escala longa) — Fontana di Trevi","A:tur c:rom"],
+[5,"FDOjhKMVP20","0:20","Roma — estrutura e manutenção de túnel","A:inf c:rom"],
+[6,"fdaecrCjxZY","0:23","Roma — água potável na rua","A:inf c:rom"],
+[7,"G-zjO3yjOQg","1:02","Fontana di Trevi — policial bravo dando bronca geral 😅","A:tur c:rom"],
+[8,"8LMtJzO-cEc","0:35","Roma (escala longa) — 4","A:tur c:rom"],
+[9,"owzdSfvSgsM","0:37","Aeroporto de Roma — piano ao vivo na fila de embarque","U:log c:rom"],
+[10,"6RjKCf2_FpA","0:41","Charles de Gaulle — pernoitando no aeroporto até o horário do ônibus","U:log U:hosp c:cdg"],
+[11,"TFdgT64Pc2I","0:58","Charles de Gaulle — pegando o Flixbus para Bruxelas","U:log A:desl c:cdg"],
+[12,"F719zU66hkQ","0:38","Bruxelas — chegando de Flixbus vindo do Charles de Gaulle","U:log A:desl c:bru"],
+[13,"mpOwlfPKyTI","0:57","Bruxelas — chegando no albergue (cápsula ou “quarto box”)","U:hosp c:bru"],
+[14,"vpKm8lkFw2Q","0:47","Bruxelas — passeando pela cidade (2)","A:tur c:bru"],
+[15,"h85wj7FZs8U","0:47","Academia de squash Winner, em Bruxelas — 8 quadras","U:clubes c:bru"],
+[16,"j5kX5mtQBbA","0:30","Bruxelas — Jardim Botânico","A:tur c:bru"],
+[17,"BpgUW8V6ZGk","0:25","Bruxelas — 5","A:tur c:bru"],
+[18,"lJPixS1atQ8","0:32","Belo entardecer na esquina do “Manequinho”, em Bruxelas","A:tur c:bru"],
+[19,"Zgm-ltnQaCM","0:56","Bruxelas — 6","A:tur c:bru"],
+[20,"Q-kyA5HWZFk","0:28","Bruxelas — a galeria principal e mais antiga","A:tur c:bru"],
+[21,"5qS5Lp2gcJ0","0:43","Bruxelas — respeito aos ciclistas","A:inf A:desl c:bru"],
+[22,"hE3I8QLbPoY","1:00","Bruxelas — andando pela cidade","A:tur c:bru"],
+[23,"VSfcKr_-auE","0:22","Bruxelas — 8","A:tur c:bru"],
+[24,"IjlzvHeuIQE","0:23","Batendo uma bola para estrear a raquete (comprada na Academia Winner, em Bruxelas)","T U:clubes c:ams"],
+[25,"VemO9dWEN_E","0:38","Bruxelas — 9","A:tur c:bru"],
+[26,"-1CU8VHi84I","1:49","Bruxelas — 11","A:tur c:bru"],
+[27,"2YkctMSSEGY","0:29","Bruxelas — rua de pedestres","A:tur A:inf c:bru"],
+[28,"vam_6tUKvAY","0:31","Bruxelas — galeria principal e seu entorno","A:tur c:bru"],
+[29,"WlLLsXO3ZZM","0:25","Brasileiro dando show no violino 🎻 na Grand-Place (2)","A:tur c:bru"],
+[30,"bJHXwgs8G_0","0:22","Brasileiro dando show no violino 🎻 na Grand-Place (4)","A:tur c:bru"],
+[31,"svi6wo2cxBs","0:56","Brasileiro dando show no violino 🎻 na Grand-Place (3)","A:tur c:bru"],
+[32,"29cxDG1L9R8","1:32","Brasileiro dando show no violino 🎻 na Grand-Place (1)","A:tur c:bru"],
+[33,"vO55U94QQ58","1:14","Brasileiro dando show no violino 🎻 na Grand-Place (6)","A:tur c:bru"],
+[34,"0B3Eicbabno","0:22","Brasileiro dando show no violino 🎻 na Grand-Place (5)","A:tur c:bru"],
+[35,"5f4AGC-jFLo","0:25","Bruxelas — 10","A:tur c:bru"],
+[36,"bj6ouGz52lo","0:48","Tapete de Flores — Bruxelas (agosto de 2024)","A:tur c:bru"],
+[37,"l7_G2PgZAG8","0:57","Grand-Place — Tapete de Flores em montagem","A:tur c:bru"],
+[38,"ncga6JdZqbw","0:14","Tapete de Flores — Grand-Place","A:tur c:bru"],
+[39,"_enLd4LURNo","0:36","Adeus, Bruxelas — cidade muito bonita e agradável","A:tur c:bru"],
+[40,"N7d6zrtY29g","0:42","Metrô de Bruxelas","A:desl c:bru"],
+[41,"SpFwQAh44bw","0:27","Flixbus Bruxelas x Amsterdam","U:log A:desl c:bru"],
+[42,"wfR7tWVYb1Q","0:58","Antuérpia — parada do Flixbus para embarque de passageiros","U:log A:desl c:ant"],
+[43,"7lpookbVEGQ","0:43","Calor absurdo — ônibus lotado e atrasado 😅","U:log A:desl"],
+[44,"BJkQ5EjxtnY","0:28","Flixbus sem ar-condicionado 😅","U:log A:desl c:bru"],
+[45,"s89qJ46rs5Q","1:03","Hospedagem PREMIUM depois de 4 noites de perrengue 😅","U:hosp c:hui"],
+[46,"tgfOIwj2xyY","1:01","Cidade de Amsterdam (1)","A:tur c:ams"],
+[47,"7AEmfQuMm04","0:32","Hospedagem em cidade no entorno de Amsterdam (que charme) 1","U:hosp c:hui"],
+[48,"8uVLHsbAdMs","1:00","Hospedagem em cidade no entorno de Amsterdam (que charme) 2","U:hosp c:hui"],
+[49,"klKMrL1NlcY","1:01","Lugares incríveis (1)","A:tur c:hui"],
+[50,"NN7P4hysvBU","1:00","Lugares incríveis (2)","A:tur c:hui"],
+[51,"sAAr8j--2m8","1:33","Feminino 40+","T:jog c:ams"],
+[52,"u6dyHQrhnrE","0:37","Estádio Olímpico de Amsterdam (ao lado do Frans Otten Stadium)","T:fo A:tur c:ams"],
+[53,"fK764KbgOzk","1:03","Lugares incríveis — Huizen","A:tur c:hui"],
+[54,"3zxLrQK7y70","0:39","Lugares incríveis — Huizen (4)","A:tur c:hui"],
+[55,"kbVr4Mp-iEE","1:09","Turismo pós-evento (1)","A:tur c:ams"],
+[56,"6Iq-8-k_7zs","1:04","Turismo pós-evento (2)","A:tur c:ams"],
+[57,"ExkLHMWFSZw","1:03","Turismo pós-evento (3)","A:tur c:ams"],
+[58,"vNzQOnp6Wtk","0:40","Amsterdam e seus canais (e bikes… e prédios…)","A:tur c:ams"],
+[59,"W0g64E0Spe4","0:41","Bela Amsterdam 🙌","A:tur c:ams"],
+[60,"RVMx1LgQ-8s","1:10","Caminhada da minha hospedagem até o evento (infraestrutura)","T:fo U:hosp A:inf c:ams"],
+[61,"N3GSch0UeYs","1:01","Entorno da minha hospedagem “próxima” do evento","U:hosp c:ams"],
+[62,"FE3hMg3oMDU","1:04","Barcos navegando pelos canais (escurecendo)","A:tur A:desl c:ams"],
+[63,"SmR1DyZW0CE","0:59","Amsterdam — vários canais se encontrando","A:tur c:ams"],
+[64,"XllzytG7eHc","0:41","Amsterdam — praça e canais navegáveis","A:tur c:ams"],
+[65,"zqOQn4jzfpU","0:34","Amsterdam — Estação Central (metrô, trem e barcas)","A:desl c:ams"],
+[66,"q7goEBim6S8","1:02","Amsterdam — Estação Central, barca atracando","A:desl c:ams"],
+[67,"bSYM3q8YDB0","0:42","Amsterdam — estação das bikes","A:desl A:inf c:ams"],
+[68,"VC_5B7g47KQ","0:43","Entorno do Frans Otten Stadium — quadra de basquete","T:fo A:inf c:ams"],
+[69,"IAaRieLkSbk","0:31","Frans Otten Stadium — restaurante e visão geral","T:fo c:ams"],
+[70,"krfA19gojLs","0:37","Flixbus Amsterdam x Haia","U:log A:desl c:ams"],
+[71,"Q2WpYQcmZgU","1:08","Haia — chegada na estação de Flixbus","U:log A:desl c:hai"],
+[72,"cY6veh2wd7I","1:03","Haia tem praia (e é bem legal)","A:tur c:hai"],
+[73,"y-wX5c9jZ7I","1:02","Haia — entorno da minha hospedagem (quarto do Airbnb)","U:hosp c:hai"],
+[74,"duXNdOJyjAc","1:05","Haia — café da manhã econômico 😉","U:hosp c:hai"],
+[75,"scOG9Wn9k6I","0:59","Haia — bikes são MEIO DE TRANSPORTE 🚴","A:desl c:hai"],
+[76,"kvzZw-9QH7M","1:04","Haia — rua residencial perto da orla","A:inf c:hai"],
+[77,"vJTLp9Efv9w","1:03","Haia — perto do porto (muitos barcos)","A:tur c:hai"],
+[78,"Gz5zStHSBKY","0:52","Haia — orla marítima","A:tur c:hai"],
+[79,"hhWCU42cumg","1:07","Haia — Lego gigante, loja e píer na orla","A:tur c:hai"],
+[80,"R1usG-Skclc","1:01","Minha “casa” em Haia (1)","U:hosp A:inf c:hai"],
+[81,"tH4gI_nFe4k","0:43","Minha “casa” em Haia (2)","U:hosp A:inf c:hai"],
+[82,"6PllxBoRdKc","0:25","Transporte sobre trilhos em Haia","A:desl c:hai"],
+[83,"aCYdZXLuoaA","0:45","Transporte sobre trilhos em Haia (2)","A:desl c:hai"],
+[84,"zkDSwyUN9a4","0:42","Haia — praça e Decathlon","A:tur c:hai"],
+[85,"VF1KxMcw6M4","1:01","Raquetes na Decathlon de Haia","U:clubes c:hai"],
+[86,"4pYotf5AaEU","1:04","Haia — estação central (despedida)","A:desl c:hai"],
+[87,"0n0-0GTWWI4","1:07","Antuérpia (escala longa) — começou difícil, mas terminou MUITO BEM 🙌","U:log c:ant"],
+[88,"q3sQJ_443MM","1:01","Antuérpia — perrengues que deixam a aventura ainda mais especial 😅💪","U:log c:ant"],
+[89,"nvbLHDiEZMo","0:58","Ônibus de Antuérpia para Bruges — finalmente um Flixbus tranquilo 🤣","U:log A:desl c:ant"],
+[90,"C0-zANh1ne8","1:03","Bruges — chegada na cidade","U:log c:brg"],
+[91,"qUujRFZSW48","1:01","Bruges — check-in no albergue","U:hosp c:brg"],
+[92,"Y1wlYAmgH3c","1:08","Escala longa em Antuérpia — no final DEU TUDO CERTO 🙌","U:log c:ant"],
+[93,"foXykPqdTOg","0:23","Antuérpia — típico pub belga","A:tur c:ant"],
+[94,"YZBM5FMsFuQ","0:49","Bruges — waffle na House of Waffles","A:tur c:brg"],
+[95,"O0AnP0vgel4","0:48","Bruges — praça principal e a TV de cachorro 🤣","A:tur c:brg"],
+[96,"zJoUaTD9bd4","0:22","Bruges — passeio de barco (1)","A:tur A:desl c:brg"],
+[97,"eGmmlK9NrKw","0:16","Bruges — passeio de barco (2)","A:tur A:desl c:brg"],
+[98,"od7-qUWmGUA","0:30","Bruges — passeio de barco (3)","A:tur A:desl c:brg"],
+[99,"d-99jBJkheE","0:49","Bruges — moinho de vento (1)","A:tur c:brg"],
+[100,"_PC_iueCx9o","0:30","Bruges — moinho de vento (2)","A:tur c:brg"],
+[101,"BFW7afs0B94","0:21","Bruges — pedal de mountain bike","A:tur c:brg"],
+[102,"D0-n68i3nLE","0:57","Bruges — praça principal (3)","A:tur c:brg"],
+[103,"3cn7votFXZ8","0:46","Bruges — batata frita na praça principal","A:tur c:brg"],
+[104,"yRc-TdJ_q4k","1:05","Lille — minha hospedagem (excelente custo-benefício)","U:hosp c:lil"],
+[105,"xyvYqNhALiE","1:02","Lille — curtindo o parque principal da cidade (estilo Ibirapuera)","A:tur A:inf c:lil"],
+[106,"cTF3_d4czbw","1:02","Lille — complexo esportivo público: futebol, hóquei, atletismo e funcional para crianças","U:clubes A:inf c:lil"],
+[107,"1Uv8oxTinhc","1:20","Lille — parque de aventura (tirolesa etc.)","A:tur c:lil"],
+[108,"ihBkQlPcCJE","1:00","Lille — parque infantil dentro do parque principal","A:inf c:lil"],
+[109,"cvU0DvcMu7o","0:57","Lille — transporte de carga pelo modal aquaviário","A:desl A:inf c:lil"],
+[110,"NI8vxVYeZuA","1:04","Academia Le Lil, em Lille — 7 excelentes quadras","U:clubes c:lil"],
+[111,"IFZuW5zt-eo","1:00","Lille — praça do Museu de Belas Artes","A:tur c:lil"],
+[112,"gSmaijhD3vE","1:02","Lille — rua do meu Airbnb (e custos em geral)","U:hosp A:inf c:lil"],
+[113,"l0h8UrXrJMs","0:18","Academia Le Lil (Lille) — badminton","U:clubes c:lil"],
+[114,"i67QZt_AMPU","0:55","Lille — estação central (última parada antes do aeroporto)","A:desl c:lil"],
+[115,"ra9idE1__B8","0:38","Flixbus de Lille para o Charles de Gaulle (bem tranquilo)","U:log A:desl c:lil"],
+[116,"USre7o3uRl8","0:51","Parada na estrada (Flixbus de Lille para o Charles de Gaulle)","U:log A:desl"],
+[117,"SAhLvsxCt8g","0:52","Charles de Gaulle — chegando para o voo de volta (com escala em Roma)","U:log c:cdg"],
+[118,"_rUbnr7IQfs","0:21","Lille — bonito painel em estação de metrô","A:tur A:desl c:lil"],
+[119,"4cio-KIWZ0o","0:41","Cortinas elétricas — abertura","A:inf"],
+[120,"uFzIoukpCt4","0:45","Persianas elétricas (blecaute total)","A:inf"],
+[121,"8lkUY1B3Fg8","5:05","RESUMÃO GERAL — Mundial Master de Squash, Amsterdam 2024","T"],
+[122,"EsnW_wvceDM","0:17","Meu cachorro me recebendo na volta 🐕❤️","U:log"],
+[123,"yGL1eQqQZY0","0:25","Bruxelas — máquinas de obra (profundidade do buraco)","A:inf c:bru"],
+[124,"RJb2gyKkjR4","1:10","Infraestrutura — asfalto","A:inf"],
+[125,"S1el-X4vc5s","0:23","Paciência e consistência — fritando o alemão (física e mentalmente)","T:jog c:ams"],
+[126,"5GMJQhWUHIQ","0:21","Delegação brasileira na quadra central","T:jog c:ams"],
+[127,"ZgeF-_fw7EQ","0:37","Match point da vitória contra o alemão (outro vídeo — Luiz)","T:jog c:ams"],
+[128,"OjtCBSfWKA0","0:33","Primeiro jogo (vitória por 3x2, 14x12 no 5º) — ponto final e “comemoração”","T:jog c:ams"]
+  ])
 };
-const NOMES_SUB = {"T":"Torneio","T:shop":"Shopping","T:mir":"Mirrabooka","T:bel":"Belmont",
-  "U:log":"Logística","U:hosp":"Hospedagem","U:pick":"Pickleball",
-  "A:tur":"Ponto turístico","A:inf":"Infraestrutura","A:desl":"Deslocamento"};
 
-function soCidTur(v){return v.m.filter(x=>x.startsWith("c:")).map(x=>x.slice(2)).filter(c=>CID_TURISMO.includes(c));}
-function cidadesDe(v){return v.m.filter(x=>x.startsWith("c:")).map(x=>x.slice(2));}
+/* ---------------- 2022 · POLÔNIA ---------------- */
+EV.pol2022 = {
+  ano:2022, pais:"Polônia", bandeira:"", sede:"Wrocław",
+  titulo:"World Squash Masters 2022 — Polônia",
+  tag:"Wrocław · Hasta La Vista · Praga",
+  desc:"O Mundial no Hasta La Vista, em Wrocław — o maior clube de squash do mundo, com 33 quadras — e uma visita ao Squash Club Strahov, em Praga.",
+  playlist:"PLZpNiES1jrAFHId1XTRjzcSzOsVfLk-Nr", playlistNome:"Mundial Master - Polônia 2022",
+  capa:"TQK5WJG7duY",
+  destaque:[19,"▶ Tour pelo Hasta La Vista (2 min)"],
+  cidades:{
+    wro:{nome:"Wrocław",ll:[51.1079,17.0385],principal:true,dir:"right",desc:"Sede do torneio — Hasta La Vista Squash Club"},
+    pra:{nome:"Praga",ll:[50.0755,14.4378],principal:true,dir:"left",desc:"Squash Club Strahov"}
+  },
+  cidTur:["wro","pra"],
+  rota:[["pra","wro"]],
+  maxZoomInicial:7,
+  zooms:[],
+  cats:[
+    {k:"torneio",tipo:"T",nome:"Torneio World Squash Masters",cor:"var(--torneio)",grad:"linear-gradient(120deg,#0b4f66,#0E6E8C)",
+     desc:"Jogos, treinos, Time Brasil e a estrutura do Hasta La Vista.",capa:"n_4gV0yi3sA",
+     subs:[["jog","Jogos"],["tre","Treinos e drills"],["br","Time Brasil"],["clube","Clube Hasta La Vista"]]},
+    {k:"turismo",tipo:"U",nome:"Turismo — Marcelo Abelheira",cor:"var(--turismo)",grad:"linear-gradient(120deg,#7a2e12,#B5481F)",
+     desc:"Clubes visitados fora do torneio e a volta para casa.",capa:"IOcHcvMiBUQ",
+     subs:[["cid","Cidades"],["clubes","Clubes visitados"],["log","Logística da viagem"]]}
+  ],
+  V:toV([
+[1,"neIpnpTsOKo","0:22","Algumas quadras com jogos (visão de cima)","T:jog T:clube c:wro"],
+[2,"O8UZ4wbL2nM","0:51","Visão da quadra (interna)","T:clube c:wro"],
+[3,"KT_S3Ai_PDU","0:42","Hasta La Vista (33 quadras) — corredor com 14 quadras!","T:clube c:wro"],
+[4,"n_4gV0yi3sA","0:55","Quadra central de vidro","T:clube c:wro"],
+[5,"8AtiWcW9uP8","1:06","Pontos de jogo intermediário na quadra de vidro (visão lateral)","T:jog c:wro"],
+[6,"h6HOyv4lDvY","0:23","Ponto de jogo comum (1)","T:jog c:wro"],
+[7,"3h6Y2qvECuI","0:17","Squash para mulheres da terceira idade","T:jog c:wro"],
+[8,"9Z_8kcNyzLw","0:58","Treino com coach (paquistanês da família Khan)","T:tre c:wro"],
+[10,"lSqB4XrcmMQ","0:23","Squash depois dos 80 anos","T:jog c:wro"],
+[11,"kpe1hgnJE4s","1:00","Drill na quadra central — paralela / paralela / cruzada","T:tre c:wro"],
+[12,"rYGIqaNPbik","0:50","Drill na quadra central — boast / paralela / paralela / paralela (V)","T:tre c:wro"],
+[13,"Eff_Z1OR2gA","0:43","Drill na quadra central — boast / paralela","T:tre c:wro"],
+[14,"2TgePUQmx_M","0:17","Drill na quadra central — drop volley cruzado / mini lob","T:tre c:wro"],
+[15,"K4uSl8U4Aqs","0:22","Drill na quadra central — volley drop (autoalimentação) / cruzada","T:tre c:wro"],
+[16,"v67CwqILtjg","1:06","Atleta jogando lesionado (no sacrifício)","T:jog c:wro"],
+[17,"JScgJOiVlPw","0:19","Agradecimento ao Mestre Filipe Soares (capitão do Time Brasil)","T:br c:wro"],
+[18,"EOceS7aBedY","0:19","Vitória do Jonas — recepção e comemoração pós-jogo","T:br T:jog c:wro"],
+[19,"TQK5WJG7duY","2:29","TOUR pelo Hasta La Vista Squash Club (maior do mundo — 33 quadras)","T:clube c:wro"],
+[20,"HPkGykInWOQ","0:39","Jonas — alguns pontos do primeiro jogo (vitória)","T:br T:jog c:wro"],
+[21,"2gbIST3HEv0","1:06","Master 35+ segunda rodada — alguns pontos","T:jog c:wro"],
+[22,"3ePjatyrRpM","0:33","Espaço fitness (musculação) do Hasta La Vista","T:clube c:wro"],
+[23,"wiR2S6KN5qc","1:01","Quadra de vidro — alguns pontos de jogo (1)","T:jog c:wro"],
+[24,"qJwU4Lp-0mg","0:54","Quadra de vidro — alguns pontos de jogo (2)","T:jog c:wro"],
+[25,"1Dd6oMlTkgs","0:51","Quadra semi-glass — visão lateral","T:clube c:wro"],
+[26,"GpYRIpbb1sY","0:17","Senhoras na quadra de vidro (algumas batidas)","T:jog c:wro"],
+[27,"vDZSBJZ40P4","1:05","Joguinho de 3/4 da quadra (permite que vários aqueçam)","T:tre c:wro"],
+[28,"daEkI8751nI","0:54","Squash Club Strahov (Praga) — conversa pré-treino com Diego Gobbi","U:clubes c:pra"],
+[29,"IOcHcvMiBUQ","0:48","Squash Club Strahov (Praga) — o local de treino","U:clubes c:pra"],
+[30,"WJH4HtCqiDc","0:28","Hasta La Vista — sauna e jacuzzi (1/2)","T:clube c:wro"],
+[31,"w4o8G_o2kj0","0:29","Hasta La Vista — sauna e jacuzzi (2/2)","T:clube c:wro"],
+[32,"2OAAny2Hvjo","1:00","Volta para casa — Campestre é o melhor","U:log"]
+  ])
+};
+
+/* Ordem das edições e a próxima, ainda por vir */
+const ORDEM = ["pol2022","hol2024","aus2026"];
+const PROXIMA = {ano:2028,pais:"África do Sul",bandeira:"",txt:"Próxima edição"};
+const PADRAO = "aus2026";
+
+/* ---------- Utilitários ---------- */
 const thumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isT = v => v.m.some(x=>x==="T"||x.startsWith("T:"));
+const cidadesDe = v => v.m.filter(x=>x.startsWith("c:")).map(x=>x.slice(2));
+const cidTur = (E,v) => cidadesDe(v).filter(c=>E.cidTur.includes(c));
+function pertence(E,cat,v){
+  if(cat.tipo==="T") return isT(v);
+  if(cat.tipo==="U") return v.m.some(x=>x.startsWith("U:")) || (cidTur(E,v).length>0 && !isT(v));
+  return v.m.some(x=>x.startsWith(cat.tipo+":"));
+}
+function naSub(E,cat,v,s){
+  if(s==="cid") return cidTur(E,v).length>0 && !isT(v);
+  return v.m.includes(cat.tipo+":"+s);
+}
+function rotulo(E,m){
+  if(m.startsWith("c:")) return E.cidades[m.slice(2)]?.nome||m;
+  if(m==="T") return "Torneio";
+  const [t,s]=m.split(":");
+  const c=E.cats.find(c=>c.tipo===t); const sb=c?.subs.find(x=>x[0]===s);
+  return sb?sb[1]:m;
+}
+function minutos(E){return Math.round(E.V.reduce((s,v)=>{const [m,ss]=v.d.split(":").map(Number);return s+m*60+ss},0)/60);}
+/* Monta o endereço de uma tela: a edição padrão (Austrália) mantém os endereços curtos */
+const rota = (ev,resto="") => ev===PADRAO ? resto : "e/"+ev+(resto?"/"+resto:"");
 
 /* ---------- Navegação por hash ---------- */
-function ir(h){location.hash=h;}
+function ir(h){ if(location.hash.slice(1)===h) render(); else location.hash=h; }
 window.addEventListener("hashchange",render);
-let mapa=null, listaAtual=[], idxAtual=0;
+let mapa=null, listaAtual=[], idxAtual=0, E=EV[PADRAO], evAtual=PADRAO;
 
 function render(){
-  const h = decodeURIComponent(location.hash.slice(1)).split("/");
+  let h = decodeURIComponent(location.hash.slice(1)).split("/").filter(x=>x!=="");
+  evAtual = PADRAO;
+  if(h[0]==="e" && EV[h[1]]){ evAtual=h[1]; h=h.slice(2); }
+  E = EV[evAtual];
   if(mapa){mapa.remove();mapa=null;}
   window.scrollTo(0,0);
-  if(h[0]==="cat" && CATS[h[1]]) telaCategoria(h[1],h[2]||"",h[3]||"");
-  else if(h[0]==="cidade" && CIDADES[h[1]]) telaCidade(h[1]);
+  document.getElementById("topo-t").textContent = `World Squash Masters ${E.ano} · ${E.pais}`;
+  document.title = `${E.titulo} — Vídeos`;
+  document.getElementById("rodape").innerHTML = `Playlist no YouTube: <a href="https://www.youtube.com/playlist?list=${E.playlist}" target="_blank" rel="noopener">${esc(E.playlistNome)}</a> · ${E.V.length} vídeos · v3`;
+  const cat = h[0]==="cat" ? E.cats.find(c=>c.k===h[1]) : null;
+  if(cat) telaCategoria(cat,h[2]||"",h[3]||"");
+  else if(h[0]==="cidade" && E.cidades[h[1]]) telaCidade(h[1]);
   else if(h[0]==="todos") telaTodos();
   else telaInicio();
 }
 
-/* ---------- Início ---------- */
+/* ---------- Início de uma edição ---------- */
 function telaInicio(){
-  const totT = V.filter(CATS.torneio.pertence).length;
-  const dur = V.reduce((s,v)=>{const [m,ss]=v.d.split(":").map(Number);return s+m*60+ss},0);
-  let html = `
+  const totT = E.V.filter(isT).length;
+  const nCid = Object.values(E.cidades).filter(c=>c.principal).length;
+  let html = "";
+  if(evAtual!==PADRAO) html += `<button class="voltar" onclick="ir('')">← Voltar ao início (${EV[PADRAO].ano} · ${EV[PADRAO].pais})</button>`;
+  html += `
   <section class="hero">
-    <span class="tag">Perth · Sydney · Katoomba · Istambul</span>
-    <h2>World Squash Masters 2026 — Austrália</h2>
-    <p>O torneio, a viagem e o que a Austrália tem a mostrar, em vídeos curtos organizados por tema. Um mesmo vídeo pode aparecer em mais de uma seção.</p>
+    <span class="tag">${esc(E.tag)}</span>
+    <h2>${esc(E.titulo)}</h2>
+    <p>${esc(E.desc)}</p>
     <div class="nums">
-      <div><b>${V.length}</b><span>vídeos</span></div>
+      <div><b>${E.V.length}</b><span>vídeos</span></div>
       <div><b>${totT}</b><span>do torneio</span></div>
-      <div><b>4</b><span>cidades visitadas</span></div>
-      <div><b>${Math.round(dur/60)} min</b><span>de conteúdo</span></div>
+      <div><b>${nCid}</b><span>cidades</span></div>
+      <div><b>${minutos(E)} min</b><span>de conteúdo</span></div>
     </div>
+    ${E.destaque?`<button class="destaque" onclick="abrirVideo(${E.destaque[0]},true)">${esc(E.destaque[1])}</button>`:""}
   </section>
-  <div class="cards3">`;
-  for(const [k,c] of Object.entries(CATS)){
-    const lista = V.filter(c.pertence);
+  <div class="cards3 ${E.cats.length===2?'n2':''}">`;
+  for(const c of E.cats){
+    const lista = E.V.filter(v=>pertence(E,c,v));
     html += `
     <article class="card-main">
-      <div class="capa" style="background-image:url(${thumb(c.capa)})" onclick="ir('cat/${k}')"><div class="ttl">${c.nome}</div></div>
+      <div class="capa" style="background-image:url(${thumb(c.capa)})" onclick="ir('${rota(evAtual,'cat/'+c.k)}')"><div class="ttl">${esc(c.nome)}</div></div>
       <div class="faixa" style="background:${c.cor}"></div>
       <div class="corpo">
-        <div class="qtd">${lista.length} vídeos · ${c.desc}</div>
-        <ul>${c.subs.map(([s,nm])=>`<li><button onclick="ir('cat/${k}/${s}')"><span>${nm}</span><span class="n">${V.filter(v=>c.pertence(v)&&c.sub(v,s)).length}</span></button></li>`).join("")}</ul>
-        <button class="abrir" onclick="ir('cat/${k}')">Ver todos →</button>
+        <div class="qtd">${lista.length} vídeos · ${esc(c.desc)}</div>
+        <ul>${c.subs.map(([s,nm])=>`<li><button onclick="ir('${rota(evAtual,'cat/'+c.k+'/'+s)}')"><span>${esc(nm)}</span><span class="n">${lista.filter(v=>naSub(E,c,v,s)).length}</span></button></li>`).join("")}</ul>
+        <button class="abrir" onclick="ir('${rota(evAtual,'cat/'+c.k)}')">Ver todos →</button>
       </div>
     </article>`;
   }
@@ -416,18 +695,42 @@ function telaInicio(){
     <p class="sub">Clique (ou toque) em uma cidade para ver todos os vídeos gravados lá.</p>
     <div id="mapa"></div>
     <div class="mapa-ctl">
-      ${Object.entries(CIDADES).map(([k,c])=>`<button class="chip ${c.principal?'':'sec'}" onclick="ir('cidade/${k}')">📍 ${c.nome} <span class="n">${V.filter(v=>cidadesDe(v).includes(k)).length}</span></button>`).join("")}
-      <button class="chip" onclick="zoomAus()">🔎 Zoom na Austrália</button>
+      ${Object.entries(E.cidades).map(([k,c])=>`<button class="chip ${c.principal?'':'sec'}" onclick="ir('${rota(evAtual,'cidade/'+k)}')">📍 ${esc(c.nome)} <span class="n">${E.V.filter(v=>cidadesDe(v).includes(k)).length}</span></button>`).join("")}
+      ${(E.zooms||[]).map((z,i)=>`<button class="chip" onclick="zoomEm(${i})">${z[0]}</button>`).join("")}
       <button class="chip" onclick="zoomRota()">🌍 Rota completa</button>
     </div>
   </section>
   <section class="secao">
+    <h3>${evAtual===PADRAO?"Outras edições do World Squash Masters":"Edições do World Squash Masters"}</h3>
+    <p class="sub">O campeonato mundial master acontece a cada 2 anos. Toque numa edição para ver os vídeos dela.</p>
+    ${cardsEdicoes()}
+  </section>
+  <section class="secao">
     <h3>Todos os vídeos</h3>
     <p class="sub">Lista completa na ordem da playlist, com busca.</p>
-    <button class="chip ativo" onclick="ir('todos')">Ver os ${V.length} vídeos →</button>
+    <button class="chip ativo" onclick="ir('${rota(evAtual,'todos')}')">Ver os ${E.V.length} vídeos →</button>
   </section>`;
   document.getElementById("app").innerHTML = html;
+  listaAtual = E.V;
   montarMapa();
+}
+
+function cardsEdicoes(){
+  const outras = ORDEM.filter(k=>k!==evAtual);
+  let h = `<div class="edicoes">`;
+  for(const k of outras){
+    const e = EV[k];
+    h += `<button class="ed" style="background-image:url(${thumb(e.capa)})" onclick="ir('${rota(k)}')">
+      <div class="in"><span class="ano">${e.ano}</span>
+        <div class="pais">${e.bandeira} ${esc(e.pais)}</div>
+        <div class="cid">${esc(e.sede)}</div>
+        <div class="q">${e.V.length} vídeos · ${e.cats.length} temas</div></div></button>`;
+  }
+  h += `<div class="ed breve"><span class="selo">Em breve</span>
+      <div class="in"><span class="ano">${PROXIMA.ano}</span>
+        <div class="pais">${PROXIMA.bandeira} ${esc(PROXIMA.pais)}</div>
+        <div class="q">${esc(PROXIMA.txt)} — vídeos depois do torneio</div></div></div>`;
+  return h + `</div>`;
 }
 
 function montarMapa(){
@@ -445,70 +748,76 @@ function montarMapa(){
     mapa.removeLayer(base); ic++; erros=0;
     base=L.tileLayer(...camadas[ic]).addTo(mapa); base.on("tileerror",trocar);
   });
-  const C=CIDADES;
-  const ida=[C.rio.ll,C.sp.ll,C.ist.ll,C.kul.ll,C.syd.ll,C.per.ll];
-  L.polyline(ida,{color:"#1B1B1F",weight:2.5,dashArray:"6 7",opacity:.8}).addTo(mapa);
-  L.polyline([C.syd.ll,C.kat.ll],{color:"#1B1B1F",weight:2.5,dashArray:"6 7",opacity:.8}).addTo(mapa);
+  const C=E.cidades;
+  for(const r of E.rota||[]) L.polyline(r.map(k=>C[k].ll),{color:"#1B1B1F",weight:2.5,dashArray:"6 7",opacity:.8}).addTo(mapa);
   for(const [k,c] of Object.entries(C)){
-    const n = V.filter(v=>cidadesDe(v).includes(k)).length;
+    const n = E.V.filter(v=>cidadesDe(v).includes(k)).length;
     const sz = c.principal?22:15;
     const icon = L.divIcon({className:"",html:`<div class="mk ${c.principal?'':'menor'}" style="width:${sz}px;height:${sz}px"></div>`,iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]});
     const m = L.marker(c.ll,{icon}).addTo(mapa);
-    m.bindPopup(`<div class="pop"><b>${c.nome}</b><br>${c.desc}<br><small>${n} vídeo(s)</small><button onclick="ir('cidade/${k}')">Ver vídeos →</button></div>`);
-    const dir = {per:"left",kat:"bottom",syd:"right",ist:"top"}[k]||"right";
+    m.bindPopup(`<div class="pop"><b>${esc(c.nome)}</b><br>${esc(c.desc)}<br><small>${n} vídeo(s)</small><button onclick="ir('${rota(evAtual,'cidade/'+k)}')">Ver vídeos →</button></div>`);
+    const dir = c.dir||"right";
     const off = {left:[-12,0],right:[12,0],bottom:[0,12],top:[0,-12]}[dir];
-    m.bindTooltip(c.nome,{permanent:c.principal,direction:dir,offset:off,className:"mk-lbl"});  }
-  zoomRota();
+    m.bindTooltip(c.nome,{permanent:c.principal,direction:dir,offset:off,className:"mk-lbl"});
+  }
+  if(E.inicio) enquadrar(E.inicio); else zoomRota();
 }
-function zoomRota(){if(mapa)mapa.fitBounds(Object.values(CIDADES).map(c=>c.ll),{padding:[30,30]});}
-function zoomAus(){if(mapa)mapa.fitBounds([CIDADES.per.ll,CIDADES.syd.ll,CIDADES.kat.ll],{padding:[60,60]});}
+function enquadrar(keys){
+  if(!mapa) return;
+  const pts = keys.map(k=>E.cidades[k].ll);
+  mapa.fitBounds(pts,{padding:[50,50],maxZoom:E.maxZoomInicial||10});
+}
+function zoomRota(){enquadrar(Object.keys(E.cidades));}
+function zoomEm(i){enquadrar(E.zooms[i][1]);}
 
 /* ---------- Categoria ---------- */
-function telaCategoria(k,s,cid){
-  const c = CATS[k];
-  const base = V.filter(c.pertence);
-  let lista = s ? base.filter(v=>c.sub(v,s)) : base;
+function telaCategoria(c,s,cid){
+  const base = E.V.filter(v=>pertence(E,c,v));
+  let lista = s ? base.filter(v=>naSub(E,c,v,s)) : base;
   if(s==="cid" && cid) lista = lista.filter(v=>cidadesDe(v).includes(cid));
   const nomeSub = s ? c.subs.find(x=>x[0]===s)?.[1] : "";
-  let html = `<button class="voltar" onclick="ir('')">← Voltar ao início</button>
-  <div class="cab-cat" style="background:${c.grad}"><h2>${c.nome}</h2><p>${c.desc}</p></div>
+  const R = x => rota(evAtual,x);
+  let html = `<button class="voltar" onclick="ir('${R('')}')">← Voltar ao início da edição ${E.ano}</button>
+  <div class="cab-cat" style="background:${c.grad}"><div class="ev">${E.bandeira} ${esc(E.titulo)}</div><h2>${esc(c.nome)}</h2><p>${esc(c.desc)}</p></div>
   <div class="abas">
-    <button class="chip ${!s?'ativo':''}" onclick="ir('cat/${k}')">Todos <span class="n">${base.length}</span></button>
-    ${c.subs.map(([sk,nm])=>`<button class="chip ${s===sk?'ativo':''}" onclick="ir('cat/${k}/${sk}')">${nm} <span class="n">${base.filter(v=>c.sub(v,sk)).length}</span></button>`).join("")}
+    <button class="chip ${!s?'ativo':''}" onclick="ir('${R('cat/'+c.k)}')">Todos <span class="n">${base.length}</span></button>
+    ${c.subs.map(([sk,nm])=>`<button class="chip ${s===sk?'ativo':''}" onclick="ir('${R('cat/'+c.k+'/'+sk)}')">${esc(nm)} <span class="n">${base.filter(v=>naSub(E,c,v,sk)).length}</span></button>`).join("")}
   </div>`;
   if(s==="cid"){
-    const tot = base.filter(v=>c.sub(v,"cid"));
+    const tot = base.filter(v=>naSub(E,c,v,"cid"));
     html += `<div class="abas2"><span class="rot">Cidade:</span>
-      <button class="chip ${!cid?'ativo':''}" onclick="ir('cat/${k}/cid')">Todas <span class="n">${tot.length}</span></button>
-      ${CID_TURISMO.map(ck=>`<button class="chip ${cid===ck?'ativo':''}" onclick="ir('cat/${k}/cid/${ck}')">${CIDADES[ck].nome} <span class="n">${tot.filter(v=>cidadesDe(v).includes(ck)).length}</span></button>`).join("")}
+      <button class="chip ${!cid?'ativo':''}" onclick="ir('${R('cat/'+c.k+'/cid')}')">Todas <span class="n">${tot.length}</span></button>
+      ${E.cidTur.filter(ck=>tot.some(v=>cidadesDe(v).includes(ck))).map(ck=>`<button class="chip ${cid===ck?'ativo':''}" onclick="ir('${R('cat/'+c.k+'/cid/'+ck)}')">${esc(E.cidades[ck].nome)} <span class="n">${tot.filter(v=>cidadesDe(v).includes(ck)).length}</span></button>`).join("")}
     </div>`;
   }
-  const nota = (k==="torneio" && !s) ? " Os vídeos sem local identificado aparecem só em “Todos”." : "";
-  html += `<p class="info-lista">${lista.length} vídeo(s)${nomeSub?` em <b>${nomeSub}${cid?" · "+CIDADES[cid].nome:""}</b>`:""}.${nota}</p>`;
+  const semSub = c.tipo==="T" && !s && base.some(v=>v.m.includes("T") && !v.m.some(x=>x.startsWith("T:")));
+  const nota = semSub ? " Os vídeos sem subdivisão identificada aparecem só em “Todos”." : "";
+  html += `<p class="info-lista">${lista.length} vídeo(s)${nomeSub?` em <b>${esc(nomeSub)}${cid?" · "+esc(E.cidades[cid].nome):""}</b>`:""}.${nota}</p>`;
   if(s==="cid" && !cid){
-    for(const ck of CID_TURISMO){
+    listaAtual=[];
+    for(const ck of E.cidTur){
       const l = lista.filter(v=>cidadesDe(v).includes(ck));
       if(!l.length) continue;
-      html += `<div class="grupo-titulo"><span class="bol" style="background:${c.cor}"></span>${CIDADES[ck].nome} (${l.length})</div>${grade(l)}`;
+      html += `<div class="grupo-titulo"><span class="bol" style="background:${c.cor}"></span>${esc(E.cidades[ck].nome)} (${l.length})</div>${grade(l)}`;
+      listaAtual.push(...l);
     }
-  } else html += grade(lista);
+  } else { html += grade(lista); listaAtual = lista; }
   document.getElementById("app").innerHTML = html;
-  listaAtual = (s==="cid"&&!cid) ? CID_TURISMO.flatMap(ck=>lista.filter(v=>cidadesDe(v).includes(ck))) : lista;
 }
 
 /* ---------- Cidade (a partir do mapa) ---------- */
 function telaCidade(k){
-  const c = CIDADES[k];
-  const lista = V.filter(v=>cidadesDe(v).includes(k));
-  let html = `<button class="voltar" onclick="ir('')">← Voltar ao mapa</button>
-  <div class="cab-cat" style="background:linear-gradient(120deg,#1B1B1F,#4a3d12)"><h2>📍 ${c.nome}</h2><p>${c.desc} · ${lista.length} vídeo(s)</p></div>
-  <div class="abas">${Object.entries(CIDADES).map(([ck,cc])=>`<button class="chip ${ck===k?'ativo':''} ${cc.principal?'':'sec'}" onclick="ir('cidade/${ck}')">${cc.nome}</button>`).join("")}</div>`;
+  const c = E.cidades[k];
+  const lista = E.V.filter(v=>cidadesDe(v).includes(k));
+  let html = `<button class="voltar" onclick="ir('${rota(evAtual)}')">← Voltar ao mapa</button>
+  <div class="cab-cat" style="background:linear-gradient(120deg,#1B1B1F,#4a3d12)"><div class="ev">${E.bandeira} ${esc(E.titulo)}</div><h2>📍 ${esc(c.nome)}</h2><p>${esc(c.desc)} · ${lista.length} vídeo(s)</p></div>
+  <div class="abas">${Object.entries(E.cidades).map(([ck,cc])=>`<button class="chip ${ck===k?'ativo':''} ${cc.principal?'':'sec'}" onclick="ir('${rota(evAtual,'cidade/'+ck)}')">${esc(cc.nome)}</button>`).join("")}</div>`;
   const usados = new Set(); listaAtual=[];
-  for(const [ck,cat] of Object.entries(CATS)){
-    const l = lista.filter(cat.pertence);
+  for(const cat of E.cats){
+    const l = lista.filter(v=>pertence(E,cat,v));
     if(!l.length) continue;
     l.forEach(v=>usados.add(v.n));
-    html += `<div class="grupo-titulo"><span class="bol" style="background:${cat.cor}"></span>${cat.nome} (${l.length})</div>${grade(l)}`;
+    html += `<div class="grupo-titulo"><span class="bol" style="background:${cat.cor}"></span>${esc(cat.nome)} (${l.length})</div>${grade(l)}`;
     listaAtual.push(...l);
   }
   const resto = lista.filter(v=>!usados.has(v.n));
@@ -518,19 +827,18 @@ function telaCidade(k){
 
 /* ---------- Todos com busca ---------- */
 function telaTodos(){
-  document.getElementById("app").innerHTML = `<button class="voltar" onclick="ir('')">← Voltar ao início</button>
-  <div class="cab-cat" style="background:linear-gradient(120deg,#1B1B1F,#3a3a44)"><h2>Todos os vídeos</h2><p>${V.length} vídeos na ordem da playlist</p></div>
-  <div style="margin:18px 0 6px"><input class="busca" id="busca" placeholder="Buscar por título, cidade ou tema (ex.: Opera, Belmont, pickleball)…" oninput="filtrar()"></div>
+  document.getElementById("app").innerHTML = `<button class="voltar" onclick="ir('${rota(evAtual)}')">← Voltar ao início da edição ${E.ano}</button>
+  <div class="cab-cat" style="background:linear-gradient(120deg,#1B1B1F,#3a3a44)"><div class="ev">${E.bandeira} ${esc(E.titulo)}</div><h2>Todos os vídeos</h2><p>${E.V.length} vídeos na ordem da playlist</p></div>
+  <div style="margin:18px 0 6px"><input class="busca" id="busca" placeholder="Buscar por título, cidade ou tema…" oninput="filtrar()"></div>
   <p class="info-lista" id="info"></p><div id="res"></div>`;
   filtrar();
-  document.getElementById("busca").focus();
 }
 function semAcento(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();}
 function filtrar(){
   const q = semAcento(document.getElementById("busca").value.trim());
-  const l = V.filter(v=>{
+  const l = E.V.filter(v=>{
     if(!q) return true;
-    const txt = semAcento(v.t+" "+v.m.map(rotulo).join(" "));
+    const txt = semAcento(v.t+" "+v.m.map(m=>rotulo(E,m)).join(" "));
     return q.split(/\s+/).every(p=>txt.includes(p));
   });
   document.getElementById("info").textContent = `${l.length} vídeo(s)`;
@@ -539,18 +847,19 @@ function filtrar(){
 }
 
 /* ---------- Componentes ---------- */
-function rotulo(m){return m.startsWith("c:") ? CIDADES[m.slice(2)].nome : NOMES_SUB[m]||m;}
 function grade(l){
   return `<div class="grade">${l.map(v=>`
     <div class="vid" onclick="abrirVideo(${v.n})" title="${esc(v.t)}">
       <div class="th" style="background-image:url(${thumb(v.id)})"><span class="num">#${v.n}</span><span class="dur">${v.d}</span><div class="play"><span>▶</span></div></div>
       <div class="tx"><div class="tt">${esc(v.t)}</div>
-        <div class="tags">${v.m.map(m=>`<span class="tg ${m.startsWith("c:")?"c":m[0]}">${rotulo(m)}</span>`).join("")}</div>
+        <div class="tags">${v.m.map(m=>`<span class="tg ${m.startsWith("c:")?"c":m[0]}">${esc(rotulo(E,m))}</span>`).join("")}</div>
       </div>
     </div>`).join("")}</div>`;
 }
-function abrirVideo(n){
-  idxAtual = listaAtual.findIndex(v=>v.n===n); if(idxAtual<0){listaAtual=V;idxAtual=V.findIndex(v=>v.n===n);}
+function abrirVideo(n,todos){
+  if(todos) listaAtual = E.V;
+  idxAtual = listaAtual.findIndex(v=>v.n===n);
+  if(idxAtual<0){listaAtual=E.V;idxAtual=E.V.findIndex(v=>v.n===n);}
   mostrar();
   document.getElementById("modal").classList.add("on");
 }
@@ -558,7 +867,7 @@ function mostrar(){
   const v = listaAtual[idxAtual];
   document.getElementById("player").src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0`;
   document.getElementById("modal-t").textContent = `#${v.n} · ${v.t}`;
-  document.getElementById("modal-yt").href = `https://www.youtube.com/watch?v=${v.id}&list=PLFOZ4swf5d8A`;
+  document.getElementById("modal-yt").href = `https://www.youtube.com/watch?v=${v.id}&list=${E.playlist}`;
 }
 function passo(d){idxAtual=(idxAtual+d+listaAtual.length)%listaAtual.length;mostrar();}
 function fecharVideo(){document.getElementById("modal").classList.remove("on");document.getElementById("player").src="";}
